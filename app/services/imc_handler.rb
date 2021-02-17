@@ -1,4 +1,11 @@
-class IMC
+class ImcHandler
+  include ActiveModel::Validations
+
+  attr_accessor :height, :weight
+
+  validates :height, presence: true
+  validates :weight, presence: true
+
   IMC_CLASSIFICATION = {
     0.0..18.4 => ["Magreza", "0"],
     18.5..24.9 => ["Normal", "0"],
@@ -6,9 +13,19 @@ class IMC
     30.0..39.9 => ["Obesidade" , "II"],
     40.0..Float::INFINITY => ["Obesidade grave", "III"],
   }
+
+  def self.execute(params)
+    imc = self.new(params[:height], params[:weight])
+    if imc.valid?
+      imc.get_imc
+    else
+      {"errors": "invalid params."}
+    end
+  end
+
   def initialize(height, weight)
-    @height = height
     @weight = weight
+    @height = height
   end
 
   def get_imc
@@ -17,7 +34,7 @@ class IMC
 
     {
       "imc": "#{imc}",
-      "classification": target_classification.first
+      "classification": target_classification.first,
       "obesity": target_classification.second
     }
   end
