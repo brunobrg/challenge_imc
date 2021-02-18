@@ -8,6 +8,8 @@ services:
       - bundle
       - exec
       - rspec
+    environment:
+      - RAILS_ENV=test
   app:
     build:
       context: .
