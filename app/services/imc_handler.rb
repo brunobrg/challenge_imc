@@ -24,7 +24,7 @@ class ImcHandler
   end
 
   def initialize(height, weight)
-    @weight = weight
+    @weight = weight.to_f
     @height = height
   end
 
