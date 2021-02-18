@@ -17,7 +17,7 @@ To calculate IMC, make a http.post to '/imc' route with following json:
 
 ```
 {
-  "height": <your height>
+  "height": <your height>,
   "weight": <your weight>
 }
 ```
