@@ -1,7 +1,17 @@
 version: '2'
 services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command:
+      - bundle
+      - exec
+      - rspec
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
     - 3000:3000/tcp
@@ -16,7 +26,5 @@ services:
     - 0.0.0.0
     volumes:
     - ./:/rhsoftware
-    stdin_open: true
-    tty: true
     environment:
        - SECRET_KEY_BASE=f865d2b2b2c0334aa51756d4cbf202e906ba1a3a8d49b6d246381c1acc4222b84078c4714ec910d0517e90f6265890adb64ca13578894b762c9bf2ea1c7e3cdd
